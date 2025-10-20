@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Medi-Loi — Orientation & Assistance</title>
+
+<style>
+  :root{
+    --bg:#f7fafc; --fg:#0f1b2d; --muted:#4b5563;
+    --brand:#0ea5e9; --brand-600:#0284c7;
+    --card:#ffffff; --border:#e5e7eb; --shadow:0 10px 30px rgba(2,8,23,.08);
+    --r:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;padding:0;background:var(--bg);color:var(--fg);
+    font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial
+  }
+  .container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
+    backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border)
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+  .brand img{width:42px;height:42px;border-radius:12px}
+  .brand .txt{font-weight:700;font-size:20px;letter-spacing:.2px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tab{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;
+    text-decoration:none;color:var(--fg);border:1px solid var(--border);background:#fff;
+    transition:transform .05s ease, background .2s ease, border-color .2s
+  }
+  .tab:hover{transform:translateY(-1px);border-color:#d1d5db}
+  .tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+
+  /* Hero */
+  .hero{padding:36px 0 20px}
+  .hero-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:28px;display:flex;gap:22px;align-items:center
+  }
+  .hero-card img.logo{width:72px;height:72px;border-radius:18px}
+  .hero h1{margin:0;font-size:28px}
+  .hero p{margin:6px 0 0;color:var(--muted);max-width:70ch}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;
+    border-radius:12px;border:1px solid var(--border);background:#fff;text-decoration:none;
+    color:var(--fg);font-weight:600
+  }
+  .btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+
+  /* Layout */
+  main{padding:20px 0 60px}
+  .panel{display:none}
+  .panel:target{display:block}
+  .panel.default{display:block}
+  .grid{display:grid;gap:16px}
+  @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:700px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
+
+  /* Cards, text */
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:20px
+  }
+  .card h2{margin:0 0 6px;font-size:20px}
+  .muted{color:var(--muted);font-size:14px}
+  .badge{
+    display:inline-block;padding:6px 10px;border-radius:999px;background:#eef6ff;
+    color:#075985;font-weight:600;font-size:12px;border:1px solid #dbeafe
+  }
+
+  /* Chat mock */
+  .chatbox{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff}
+  .chat-messages{height:260px;overflow:auto;padding:16px}
+  .msg{margin:10px 0}
+  .msg .who{font-weight:700;font-size:13px;margin-bottom:2px}
+  .msg.user .who{color:#334155}
+  .msg.bot .who{color:var(--brand-600)}
+  .msg .bubble{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:10px 12px}
+  .msg.bot .bubble{background:#eff6ff;border-color:#dbeafe}
+  .chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border)}
+  .chat-input input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid var(--border);outline:none}
+  .chat-input button{padding:12px 16px;border-radius:12px;border:1px solid var(--brand);background:var(--brand);color:#fff;font-weight:700}
+
+  /* Footer */
+  footer{border-top:1px solid var(--border);color:var(--muted);padding:22px 0;font-size:13px;text-align:center}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#profils">
+      <img src="mediloi.png" alt="Logo Medi-Loi" />
+      <span class="txt">Medi-Loi</span>
+    </a>
+    <nav class="tabs">
+      <a class="tab" id="tab-profils" href="#profils">Profils</a>
+      <a class="tab" id="tab-ia" href="#ia">IA d’orientation</a>
+      <a class="tab" id="tab-services" href="#services">Nos services</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-card">
+      <img class="logo" src="mediloi.png" alt="Logo Medi-Loi" />
+      <div>
+        <h1>Comprendre vos options après une erreur médicale</h1>
+        <p>Plateforme d’orientation par IA et d’assistance administrative — France. ⚠️ Informations générales, pas de conseil juridique individualisé.</p>
+        <div class="row" style="margin-top:12px;">
+          <a class="btn primary" href="#ia">Décrire ma situation</a>
+          <a class="btn" href="#services">On s’occupe de tout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <!-- Onglet 1 : Profils -->
+  <section id="profils" class="panel default">
+    <div class="grid cols-3">
+      <div class="card">
+        <h2>Patient</h2>
+        <p class="muted">Je suis la personne concernée par l’événement médical.</p>
+        <div class="row" style="margin-top:10px;"><span class="badge">Parcours conseillé</span></div>
+        <ul>
+          <li>Réunir mon dossier médical</li>
+          <li>Évaluer : CCI / médiation / plainte</li>
+          <li>Vérifier les délais de prescription</li>
+        </ul>
+        <a class="btn primary" href="#ia" style="margin-top:10px;">Commencer</a>
+      </div>
+
+      <div class="card">
+        <h2>Proche / Tiers</h2>
+        <p class="muted">J’aide un membre de ma famille, ou j’agis en tant que représentant légal.</p>
+        <ul>
+          <li>Identifier les documents utiles</li>
+          <li>Demander la communication du dossier</li>
+          <li>Saisir l’instance adaptée</li>
+        </ul>
+        <a class="btn" href="#ia" style="margin-top:10px;">Obtenir un plan</a>
+      </div>
+
+      <div class="card">
+        <h2>Professionnel</h2>
+        <p class="muted">Je suis soignant / établissement : prévention, médiation, gestion de dossier.</p>
+        <ul>
+          <li>Médiation & procédures internes</li>
+          <li>Préparation d’expertise</li>
+          <li>Bonnes pratiques & risques</li>
+        </ul>
+        <a class="btn" href="#services" style="margin-top:10px;">Solutions dédiées</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Onglet 2 : IA -->
+  <section id="ia" class="panel">
+    <div class="grid cols-2">
+      <div class="card">
+        <h2>IA d’orientation</h2>
+        <p class="muted">Expliquez votre situation en quelques phrases. L’IA propose des étapes et des ressources adaptées (générales).</p>
+        <div class="chatbox" role="region" aria-label="Simulation de chat IA">
+          <div class="chat-messages">
+            <div class="msg user">
+              <div class="who">Vous</div>
+              <div class="bubble">Opération en 2023, complications et séquelles. Que faire ?</div>
+            </div>
+            <div class="msg bot">
+              <div class="who">Medi-Loi (IA)</div>
+              <div class="bubble">
+                Étapes possibles (à confirmer) :<br>
+                • Demander votre dossier médical complet<br>
+                • Évaluer si une saisine CCI est adaptée (gravité/critères)<br>
+                • Consulter un avocat pour un avis personnalisé si besoin
+              </div>
+            </div>
+          </div>
+          <div class="chat-input">
+            <input placeholder="Décrivez votre situation… (démo statique)" />
+            <button>Envoyer</button>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:10px;font-size:12px;">⚠️ Réponses informatives, non constitutives d’un conseil juridique individualisé.</p>
+      </div>
+
+      <div class="card">
+        <h2>Ressources rapides</h2>
+        <ul>
+          <li>📄 Modèle — Demande de dossier médical</li>
+          <li>🏛️ Procédure — Saisine de la CCI (aperçu)</li>
+          <li>❓ FAQ — Délais & prescription (notions clés)</li>
+        </ul>
+        <div class="row" style="margin-top:12px;">
+          <a class="btn" href="#profils">Voir les profils</a>
+          <a class="btn primary" href="#services">On s’occupe de tout</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Onglet 3 : Services -->
+  <section id="services" class="panel">
+    <div class="grid cols-3">
+      <div class="card">
+        <h2>Essentiel</h2>
+        <p class="muted">On prépare et envoie vos courriers recommandés, on suit les AR.</p>
+        <ul>
+          <li>Génération + envoi recommandé</li>
+          <li>Suivi et relances</li>
+          <li>Tableau de bord</li>
+        </ul>
+        <a class="btn primary" href="#ia" style="margin-top:10px;">Démarrer</a>
+      </div>
+
+      <div class="card">
+        <h2>Complet</h2>
+        <p class="muted">Gestion administrative du dossier, préparation d’expertise, centralisation des pièces.</p>
+        <ul>
+          <li>Checklists & relances</li>
+          <li>Préparation au rendez-vous d’expertise</li>
+          <li>Coordination des échanges</li>
+        </ul>
+        <a class="btn primary" href="#ia" style="margin-top:10px;">Nous confier le dossier</a>
+      </div>
+
+      <div class="card">
+        <h2>Avocats & Experts</h2>
+        <p class="muted">Mise en relation transparente avec des avocats/experts partenaires (si nécessaire).</p>
+        <ul>
+          <li>Mise en relation sur demande</li>
+          <li>Honoraires fixés par le professionnel</li>
+          <li>Transparence & conformité</li>
+        </ul>
+        <a class="btn" href="#profils" style="margin-top:10px;">En savoir plus</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    © 2025 Medi-Loi — Service d’information et d’assistance administrative (France). Aucune fourniture de conseil juridique individualisé.
+  </div>
+</footer>
+
+<script>
+  function setActive(){
+    const hash = window.location.hash || '#profils';
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    const map = { '#profils':'#tab-profils', '#ia':'#tab-ia', '#services':'#tab-services' };
+    const id = map[hash]; if(id) document.querySelector(id)?.classList.add('active');
+  }
+  window.addEventListener('hashchange', setActive);
+  window.addEventListener('DOMContentLoaded', setActive);
+</script>
+
+</body>
+</html>
